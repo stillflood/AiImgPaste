@@ -1,0 +1,62 @@
+name: Build Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup AutoHotkey v2
+      run: |
+        # 下载 AutoHotkey v2
+        Invoke-WebRequest -Uri "https://www.autohotkey.com/download/ahk-v2.zip" -OutFile "ahk-v2.zip"
+        Expand-Archive "ahk-v2.zip" -DestinationPath "AutoHotkey"
+        
+    - name: Setup Ahk2Exe Compiler
+      run: |
+        # 下载 Ahk2Exe 编译器 release 版本
+        Invoke-WebRequest -Uri "https://github.com/AutoHotkey/Ahk2Exe/releases/download/Ahk2Exe1.1.37.02a0a/Ahk2Exe_1.1.37.02a0a.zip" -OutFile "ahk2exe.zip"
+        Expand-Archive "ahk2exe.zip" -DestinationPath "Compiler"
+        
+    - name: Compile script
+      run: |
+        .\Compiler\Ahk2Exe.exe /in AiPasteImg.ahk /out AiImgPaste.exe /base ".\AutoHotkey\AutoHotkey64.exe"
+        
+    - name: Create Release
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: |
+          自动构建的发布版本
+          
+          ## 下载说明
+          - 下载 `AiImgPaste.exe` 即可直接使用
+          - 无需安装 AutoHotkey，exe 包含所有依赖
+          
+          ## 更新内容
+          详见 [CHANGELOG.md](CHANGELOG.md)
+        draft: false
+        prerelease: false
+        
+    - name: Upload Release Asset
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./AiImgPaste.exe
+        asset_name: AiImgPaste.exe
+        asset_content_type: application/octet-stream

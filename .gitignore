@@ -1,0 +1,47 @@
+# AutoHotkey 编译文件
+*.exe
+*.com
+
+# Windows 缩略图缓存
+Thumbs.db
+ehthumbs.db
+*.tmp
+
+# 文件夹配置文件
+Desktop.ini
+
+# 回收站
+$RECYCLE.BIN/
+
+# Windows 快捷方式文件
+*.lnk
+
+# 编辑器和IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统生成的文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# 项目特定
+/screenshots/*.png
+/screenshots/*.jpg
+/screenshots/*.jpeg
+!/screenshots/.gitkeep
+
+# 配置文件（可能包含敏感信息）
+config.ini
+
+# 日志文件
+*.log
+
+# 构建产物
+dist/
+build/

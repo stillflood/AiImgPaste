@@ -1,0 +1,2 @@
+# 这个文件确保screenshots目录被包含在Git中
+# 但实际的截图文件会被.gitignore忽略

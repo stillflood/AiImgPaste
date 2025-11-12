@@ -1,5 +1,5 @@
 ;@Ahk2Exe-ExeName AiImgPaste.exe
-;@Ahk2Exe-SetMainIcon app.ico
+;@Ahk2Exe-SetMainIcon sflood.ico
 ;@Ahk2Exe-SetDescription "Paste clipboard image to @path with tray settings"
 ;@Ahk2Exe-SetFileVersion 1.0.0.0
 ;@Ahk2Exe-SetProductVersion 1.0.0

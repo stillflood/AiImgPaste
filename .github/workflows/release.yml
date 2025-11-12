@@ -16,9 +16,10 @@ jobs:
       
     - name: Setup AutoHotkey v2
       run: |
-        # 下载 AutoHotkey v2
-        Invoke-WebRequest -Uri "https://www.autohotkey.com/download/ahk-v2.zip" -OutFile "ahk-v2.zip"
-        Expand-Archive "ahk-v2.zip" -DestinationPath "AutoHotkey"
+        # 从 GitHub Release 下载 AutoHotkey v2
+        $ahkVersion = "2.0.18"
+        Invoke-WebRequest -Uri "https://github.com/AutoHotkey/AutoHotkey/releases/download/v$ahkVersion/AutoHotkey_$ahkVersion.zip" -OutFile "ahk.zip"
+        Expand-Archive "ahk.zip" -DestinationPath "AutoHotkey"
         
     - name: Setup Ahk2Exe Compiler
       run: |

@@ -105,7 +105,7 @@ AiImgPaste/
 
 使用 AutoHotkey v2 内置编译器：
 ```ahk
-Ahk2Exe.exe /in AiPasteImg.ahk /out AiImgPaste.exe /icon app.ico
+Ahk2Exe.exe /in AiPasteImg.ahk /out AiImgPaste.exe /icon sflood.ico
 ```
 
 ## 🤝 兼容性

@@ -45,3 +45,6 @@ config.ini
 # 构建产物
 dist/
 build/
+
+# 保留项目图标
+!sflood.ico

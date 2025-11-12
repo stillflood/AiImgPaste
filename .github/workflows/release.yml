@@ -24,7 +24,7 @@ jobs:
     - name: Setup Ahk2Exe Compiler
       run: |
         # 下载 Ahk2Exe 编译器 release 版本
-        Invoke-WebRequest -Uri "https://github.com/AutoHotkey/Ahk2Exe/releases/download/Ahk2Exe1.1.37.02a0a/Ahk2Exe_1.1.37.02a0a.zip" -OutFile "ahk2exe.zip"
+        Invoke-WebRequest -Uri "https://github.com/AutoHotkey/Ahk2Exe/releases/download/Ahk2Exe1.1.37.02a0a/Ahk2Exe1.1.37.02a0.zip" -OutFile "ahk2exe.zip"
         Expand-Archive "ahk2exe.zip" -DestinationPath "Compiler"
         
     - name: Compile script

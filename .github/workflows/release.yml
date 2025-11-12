@@ -29,35 +29,36 @@ jobs:
         
     - name: Compile script
       run: |
-        .\Compiler\Ahk2Exe.exe /in AiPasteImg.ahk /out AiImgPaste.exe /base ".\AutoHotkey\AutoHotkey64.exe"
+        # 编译 64 位版本
+        .\Compiler\Ahk2Exe.exe /in AiPasteImg.ahk /out AiImgPaste_x64.exe /base ".\AutoHotkey\AutoHotkey64.exe"
+        # 编译 32 位版本
+        .\Compiler\Ahk2Exe.exe /in AiPasteImg.ahk /out AiImgPaste_x86.exe /base ".\AutoHotkey\AutoHotkey32.exe"
         
     - name: Create Release
       if: startsWith(github.ref, 'refs/tags/')
-      uses: actions/create-release@v1
+      id: create_release
+      uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        name: Release ${{ github.ref_name }}
         body: |
-          自动构建的发布版本
+          ## 🎉 自动构建的发布版本
           
-          ## 下载说明
-          - 下载 `AiImgPaste.exe` 即可直接使用
+          ### 📥 下载说明
+          - **AiImgPaste_x64.exe** - 64 位 Windows 版本（推荐）
+          - **AiImgPaste_x86.exe** - 32 位 Windows 版本（兼容旧系统）
           - 无需安装 AutoHotkey，exe 包含所有依赖
           
-          ## 更新内容
-          详见 [CHANGELOG.md](CHANGELOG.md)
+          ### 🚀 使用方法
+          1. 下载对应版本的 exe 文件
+          2. 双击运行，程序会在系统托盘显示
+          3. 截图后按 `Alt+Shift+V` 自动粘贴路径
+          
+          ### 📝 更新内容
+          详见 [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md)
         draft: false
         prerelease: false
-        
-    - name: Upload Release Asset
-      if: startsWith(github.ref, 'refs/tags/')
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./AiImgPaste.exe
-        asset_name: AiImgPaste.exe
-        asset_content_type: application/octet-stream
+        files: |
+          AiImgPaste_x64.exe
+          AiImgPaste_x86.exe
